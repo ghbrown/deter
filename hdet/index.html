@@ -36,16 +36,11 @@
     </div>
 
     <div id="control">
-        <select id="builtin-functions"></select>
-        <span title="Update equation (Alt+Enter)"><button id="button-update">update</button></span>
-        <a href='#' style="float:right"
-            onclick='javascript:event.preventDefault();document.getElementById("help-menu").style.visibility="visible";'>help</a>
-        <br />
-        <span title="Display a preview of the input equation"><input type="checkbox" id="checkbox-latex"
-                checked />equation preview</span>&ensp;
-        <span title="Automatically update the shader on input"><input type="checkbox" id="checkbox-auto-compile"
-                checked />auto-update</span>&ensp;
-        <br />
+        <span hidden><select id="builtin-functions"></select></span>
+        <span title="Display a preview of the input equation" hidden><input type="checkbox" id="checkbox-latex"
+                />equation preview</span>
+        <span title="Automatically update the shader on input" hidden><input type="checkbox" id="checkbox-auto-compile"
+                checked />auto-update</span>
         <p> T_0, T_1: </p>
         <textarea id="T0-input" spellcheck="false" autocapitalize="off" autocorrect="off"
             data-gramm="false"></textarea>
@@ -59,51 +54,56 @@
             data-gramm="false"></textarea>
         <br />
         <textarea id="equation-input" spellcheck="false" autocapitalize="off" autocorrect="off"
-            data-gramm="false"></textarea>
+            data-gramm="false" hidden></textarea>
         <br />
+        <span title="Randomize all tensors"><button id="button-randomize" onclick='randomize_tensors()'>randomize</button></span>
+        <span title="Update equation (Alt+Enter)"><button id="button-update">update</button></span>
+        <br>
+        <br>
         <span><select id="select-step">
                 <option value="0.04">low</option>
                 <option value="0.01" selected>medium</option>
                 <option value="0.004">high</option>
                 <option value="0.001">ultra high</option>
             </select>quality</span>&ensp;
-        <span title="Use y-up coordinate system convension"><input type="checkbox"
+        <span title="Use y-up coordinate system convension" hidden><input type="checkbox"
                 id="checkbox-yup" /><i>y</i>-up</span>&ensp;
-        <span title="Light theme"><input type="checkbox" id="checkbox-light" />☼</span>
-        <br />
         <span title="Clip the shape inside a box"><select id="select-clip">
             <option value="0">no</option>
             <option value="1" selected>box</option>
             <option value="2">sphere</option>
-        </select>clip</span>
-        (<span title="Fixed box size independent of zooming"><input type="checkbox"
-                id="checkbox-clip-fixed" />fixed</span>)&ensp;
-            <span title="Visualize scalar field with volume contour lines"><select id="select-field">
-                <option value="0" selected>no</option>
-                <option value="2">log</option>
-                <option value="1">linear</option>
-                <option value="3">color</option>
-            </select>field</span>
-        <br />
+        </select>clip shape</span>
+        <br>
+        <span title="Fixed box size independent of zooming" hidden><input type="checkbox"
+                id="checkbox-clip-fixed" />fixed</span>
+        <span title="Visualize scalar field with volume contour lines" hidden><select id="select-field">
+            <option value="0" selected>no</option>
+            <option value="2">log</option>
+            <option value="1">linear</option>
+            <option value="3">color</option>
+        </select>field</span>
         <span title="Surface color mode"><select id="select-color">
                 <option value="0">default</option>
                 <option value="1">normal</option>
                 <option value="2" selected>gradient</option>
-            </select>color</span>&ensp;
-        <span title="Display the surface as semi-transparent"><input type="checkbox"
-                id="checkbox-transparency" />transparency</span>
-        <br />
+            </select>surface color</span>&ensp;
+        <span title="Display the surface as semi-transparent" hidden>
+            <input type="checkbox"id="checkbox-transparency"/>transparency</span>
         <span title="Show grid on the surface"><input type="checkbox" id="checkbox-grid" checked />grid</span>&ensp;
-        <span title="Red-highlight discontinuities with sign change for opaque surfaces"><input type="checkbox"
+        <br />
+        <span title="Red-highlight discontinuities with sign change for opaque surfaces" hidden><input type="checkbox"
                 id="checkbox-discontinuity" checked />highlight discontinuity</span>
         <br />
         <span><i>θ<sub>light</sub></i>&nbsp;<input type="range" id="slider-theta" style="width:100px" /></span>
         <span><i>φ<sub>light</sub></i>&nbsp;<input type="range" id="slider-phi" style="width:60px" /></span>
+        <br>
+        <span title="Light theme"><input type="checkbox" id="checkbox-light" />☼ &nbsp&nbsp</span>
+        <a href='#' onclick='javascript:event.preventDefault();document.getElementById("help-menu").style.visibility="visible";'>help</a>
         <br />
         <p id="error-message" style="display:none"></p>
     </div>
 
-    <div id="mathjax-preview" style="left:0px;top:0px;display:none"></div>
+    <div id="mathjax-preview" style="left:0px;top:0px;display:none" hidden></div>
 
     <div id="help-menu" style="visibility:hidden">
         <div id="help-menu-hide" onclick='document.getElementById("help-menu").style.visibility="hidden"'>×</div>
