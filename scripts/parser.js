@@ -2,6 +2,16 @@
 
 "use strict";
 
+function parseTensor(T_expr) {
+  var to_erase = '{}()[],;';  // characters we don't care about
+  var expr = T_expr.trim();
+  for (const c of to_erase) {
+    expr = expr.replaceAll(c,'');
+  }
+  expr = expr.replace(/\s+/g,' '); // remove duplicate spaces
+  var T_array = expr.split(' ').map(Number);
+  return T_array;
+}
 
 let MathParser = {
     // independent variables, one letter, can be reassigned

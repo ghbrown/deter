@@ -1,9 +1,9 @@
 // 3D Implicit Surface Grapher
 
-const NAME = "spirulae.implicit3.";
+const NAME = "spirulae.hdet.";
 
 const builtinFunctions = [
-    ["A6 Heart", "(x^2+8/4*y^2+z^2-1)^3=(x^2+9/80*y^2)*z^3"],
+    ["A6 Heart", "(x^2+9/4*y^2+z^2-1)^3=(x^2+9/80*y^2)*z^3"],
     ["A6 Fox", "2(x^2+2y^2+z^2)^3-2(9x^2+y^2)z^3=1"],
     ["A5 Star", "4(x^2+2y^2+z^2-1)^2-z(5x^4-10x^2z^2+z^4)=1"],
     ["A7 Genus 2", "2y(y^2-3x^2)(1-z^2)+(x^2+y^2)^2-(9z^2-1)(1-z^2)"],

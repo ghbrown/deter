@@ -433,6 +433,32 @@ var UpdateFunctionInputConfig = {
 
 var WarningStack = [];
 
+function hdet_implicit(T0,T1,T2,T3) {
+    var hdet_sym =
+        "-(4*x**2*T1[0,0,0]*T1[1,1,0] - 4*x**2*T1[0,1,0]*T1[1,0,0] + 4*x*y*T1[0,0,0]*T2[1,1,0] - 4*x*y*T1[0,1,0]*T2[1,0,0] - 4*x*y*T1[1,0,0]*T2[0,1,0] + 4*x*y*T1[1,1,0]*T2[0,0,0] + 4*x*z*T1[0,0,0]*T3[1,1,0] - 4*x*z*T1[0,1,0]*T3[1,0,0] - 4*x*z*T1[1,0,0]*T3[0,1,0] + 4*x*z*T1[1,1,0]*T3[0,0,0] + 4*x*T0[0,0,0]*T1[1,1,0] - 4*x*T0[0,1,0]*T1[1,0,0] - 4*x*T0[1,0,0]*T1[0,1,0] + 4*x*T0[1,1,0]*T1[0,0,0] + 4*y**2*T2[0,0,0]*T2[1,1,0] - 4*y**2*T2[0,1,0]*T2[1,0,0] + 4*y*z*T2[0,0,0]*T3[1,1,0] - 4*y*z*T2[0,1,0]*T3[1,0,0] - 4*y*z*T2[1,0,0]*T3[0,1,0] + 4*y*z*T2[1,1,0]*T3[0,0,0] + 4*y*T0[0,0,0]*T2[1,1,0] - 4*y*T0[0,1,0]*T2[1,0,0] - 4*y*T0[1,0,0]*T2[0,1,0] + 4*y*T0[1,1,0]*T2[0,0,0] + 4*z**2*T3[0,0,0]*T3[1,1,0] - 4*z**2*T3[0,1,0]*T3[1,0,0] + 4*z*T0[0,0,0]*T3[1,1,0] - 4*z*T0[0,1,0]*T3[1,0,0] - 4*z*T0[1,0,0]*T3[0,1,0] + 4*z*T0[1,1,0]*T3[0,0,0] + 4*T0[0,0,0]*T0[1,1,0] - 4*T0[0,1,0]*T0[1,0,0])*(x**2*T1[0,0,1]*T1[1,1,1] - x**2*T1[0,1,1]*T1[1,0,1] + x*y*T1[0,0,1]*T2[1,1,1] - x*y*T1[0,1,1]*T2[1,0,1] - x*y*T1[1,0,1]*T2[0,1,1] + x*y*T1[1,1,1]*T2[0,0,1] + x*z*T1[0,0,1]*T3[1,1,1] - x*z*T1[0,1,1]*T3[1,0,1] - x*z*T1[1,0,1]*T3[0,1,1] + x*z*T1[1,1,1]*T3[0,0,1] + x*T0[0,0,1]*T1[1,1,1] - x*T0[0,1,1]*T1[1,0,1] - x*T0[1,0,1]*T1[0,1,1] + x*T0[1,1,1]*T1[0,0,1] + y**2*T2[0,0,1]*T2[1,1,1] - y**2*T2[0,1,1]*T2[1,0,1] + y*z*T2[0,0,1]*T3[1,1,1] - y*z*T2[0,1,1]*T3[1,0,1] - y*z*T2[1,0,1]*T3[0,1,1] + y*z*T2[1,1,1]*T3[0,0,1] + y*T0[0,0,1]*T2[1,1,1] - y*T0[0,1,1]*T2[1,0,1] - y*T0[1,0,1]*T2[0,1,1] + y*T0[1,1,1]*T2[0,0,1] + z**2*T3[0,0,1]*T3[1,1,1] - z**2*T3[0,1,1]*T3[1,0,1] + z*T0[0,0,1]*T3[1,1,1] - z*T0[0,1,1]*T3[1,0,1] - z*T0[1,0,1]*T3[0,1,1] + z*T0[1,1,1]*T3[0,0,1] + T0[0,0,1]*T0[1,1,1] - T0[0,1,1]*T0[1,0,1]) + (x**2*T1[0,0,0]*T1[1,1,1] + x**2*T1[0,0,1]*T1[1,1,0] - x**2*T1[0,1,0]*T1[1,0,1] - x**2*T1[0,1,1]*T1[1,0,0] + x*y*T1[0,0,0]*T2[1,1,1] + x*y*T1[0,0,1]*T2[1,1,0] - x*y*T1[0,1,0]*T2[1,0,1] - x*y*T1[0,1,1]*T2[1,0,0] - x*y*T1[1,0,0]*T2[0,1,1] - x*y*T1[1,0,1]*T2[0,1,0] + x*y*T1[1,1,0]*T2[0,0,1] + x*y*T1[1,1,1]*T2[0,0,0] + x*z*T1[0,0,0]*T3[1,1,1] + x*z*T1[0,0,1]*T3[1,1,0] - x*z*T1[0,1,0]*T3[1,0,1] - x*z*T1[0,1,1]*T3[1,0,0] - x*z*T1[1,0,0]*T3[0,1,1] - x*z*T1[1,0,1]*T3[0,1,0] + x*z*T1[1,1,0]*T3[0,0,1] + x*z*T1[1,1,1]*T3[0,0,0] + x*T0[0,0,0]*T1[1,1,1] + x*T0[0,0,1]*T1[1,1,0] - x*T0[0,1,0]*T1[1,0,1] - x*T0[0,1,1]*T1[1,0,0] - x*T0[1,0,0]*T1[0,1,1] - x*T0[1,0,1]*T1[0,1,0] + x*T0[1,1,0]*T1[0,0,1] + x*T0[1,1,1]*T1[0,0,0] + y**2*T2[0,0,0]*T2[1,1,1] + y**2*T2[0,0,1]*T2[1,1,0] - y**2*T2[0,1,0]*T2[1,0,1] - y**2*T2[0,1,1]*T2[1,0,0] + y*z*T2[0,0,0]*T3[1,1,1] + y*z*T2[0,0,1]*T3[1,1,0] - y*z*T2[0,1,0]*T3[1,0,1] - y*z*T2[0,1,1]*T3[1,0,0] - y*z*T2[1,0,0]*T3[0,1,1] - y*z*T2[1,0,1]*T3[0,1,0] + y*z*T2[1,1,0]*T3[0,0,1] + y*z*T2[1,1,1]*T3[0,0,0] + y*T0[0,0,0]*T2[1,1,1] + y*T0[0,0,1]*T2[1,1,0] - y*T0[0,1,0]*T2[1,0,1] - y*T0[0,1,1]*T2[1,0,0] - y*T0[1,0,0]*T2[0,1,1] - y*T0[1,0,1]*T2[0,1,0] + y*T0[1,1,0]*T2[0,0,1] + y*T0[1,1,1]*T2[0,0,0] + z**2*T3[0,0,0]*T3[1,1,1] + z**2*T3[0,0,1]*T3[1,1,0] - z**2*T3[0,1,0]*T3[1,0,1] - z**2*T3[0,1,1]*T3[1,0,0] + z*T0[0,0,0]*T3[1,1,1] + z*T0[0,0,1]*T3[1,1,0] - z*T0[0,1,0]*T3[1,0,1] - z*T0[0,1,1]*T3[1,0,0] - z*T0[1,0,0]*T3[0,1,1] - z*T0[1,0,1]*T3[0,1,0] + z*T0[1,1,0]*T3[0,0,1] + z*T0[1,1,1]*T3[0,0,0] + T0[0,0,0]*T0[1,1,1] + T0[0,0,1]*T0[1,1,0] - T0[0,1,0]*T0[1,0,1] - T0[0,1,1]*T0[1,0,0])**2";
+
+    var T_list = [T0,T1,T2,T3];
+    var hdet_imp = hdet_sym;
+    // substitute actual values into expression
+    var ind_flat, elt_cur;
+    for (let iT in [0,1,2,3]) {
+        var Tcur = T_list[iT];
+        for (let i in [0,1])  {
+          for (let j in [0,1])  {
+            for (let k in [0,1])  {
+              ind_flat = i*4 + j*2 + k*1;  // index into vec(Tcur)
+              elt_cur = Tcur[ind_flat];
+              console.log(`T${iT}[${i},${j},${k}]=${elt_cur}`);
+              hdet_imp = hdet_imp.replaceAll(`T${iT}[${i},${j},${k}]`,
+                                             elt_cur);
+          }
+        }
+      }
+    }
+    console.log(hdet_imp);
+    return hdet_imp;
+}
+
 function updateFunctionInput(forceRecompile = false, updateFunction = true) {
     let checkboxLatex = document.getElementById("checkbox-latex");
     let checkboxAutoCompile = document.getElementById("checkbox-auto-compile");
@@ -442,7 +468,18 @@ function updateFunctionInput(forceRecompile = false, updateFunction = true) {
     for (var i = 0; i < RawParameters.length; i++)
         if (RawParameters[i].callback)
             RawParameters[i].callback(RawParameters[i].getValue());
-    var expr = document.getElementById("equation-input").value;
+    // read tensors
+    var T0_expr = document.getElementById("T0-input").value;
+    var T1_expr = document.getElementById("T1-input").value;
+    var T2_expr = document.getElementById("T2-input").value;
+    var T3_expr = document.getElementById("T3-input").value;
+    var T0 = parseTensor(T0_expr);
+    var T1 = parseTensor(T1_expr);
+    var T2 = parseTensor(T2_expr);
+    var T3 = parseTensor(T3_expr);
+    // create implicit expression from tensors
+    var expr = hdet_implicit(T0,T1,T2,T3);
+    // expr = document.getElementById("equation-input").value;
     try {
         localStorage.setItem(NAME + "input", expr);
         localStorage.setItem(NAME + "params", JSON.stringify(parameters));
