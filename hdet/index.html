@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>3D Implicit Surface Grapher | Spirulae</title>
+    <title>Hyperdeterminant Visualizer</title>
     <meta name="description"
         content="A high-quality 3D implicit surface graphing tool that supports variable/function definition and various graphing parameters." />
     <meta name="keywords"
@@ -39,8 +39,7 @@
         <span hidden><select id="builtin-functions"></select></span>
         <span title="Display a preview of the input equation" hidden><input type="checkbox" id="checkbox-latex"
                 />equation preview</span>
-        <span title="Automatically update the shader on input" hidden><input type="checkbox" id="checkbox-auto-compile"
-                checked />auto-update</span>
+        <span title="Automatically update the shader on input" hidden><input type="checkbox" id="checkbox-auto-compile"/>auto-update</span>
         <p> $\mathcal{T}_0$,&nbsp $\mathcal{T}_1$: </p>
         <textarea id="T0-input" spellcheck="false" autocapitalize="off" autocorrect="off"
             data-gramm="false"></textarea>
@@ -56,8 +55,8 @@
         <textarea id="equation-input" spellcheck="false" autocapitalize="off" autocorrect="off"
             data-gramm="false" hidden></textarea>
         <br />
-        <span title="Randomize all tensors"><button id="button-randomize" onclick='randomize_tensors()'>randomize</button></span>
-        <span title="Update equation (Alt+Enter)"><button id="button-update">update</button></span>
+        <span title="Randomize all tensors"><button id="button-randomize" onclick='randomize_tensors(); updateHdet();'>randomize</button></span>
+        <span title="Update equation"><button id="button-update" onclick='updateHdet();'>update</button></span>
         <br>
         <br>
         <span><select id="select-step">

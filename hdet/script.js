@@ -82,13 +82,52 @@ function random_numbers(n) {
 }
 
 function randomize_tensors() {
+  // create random entries for the tensor fields
   var fields = ["T0-input", "T1-input", "T2-input", "T3-input"];
-  console.log("fields:" + fields);
   for (let f of fields) {
-    console.log("field:" + f);
     var elem = document.getElementById(f);
     elem.value = random_numbers(8);
   }
+}
+
+function updateHdet() {
+    // read tensors in vectorized
+    var vec_T0 = parseTensor(document.getElementById("T0-input").value);
+    var vec_T1 = parseTensor(document.getElementById("T1-input").value);
+    var vec_T2 = parseTensor(document.getElementById("T2-input").value);
+    var vec_T3 = parseTensor(document.getElementById("T3-input").value);
+    // create implicit expression from tensors
+    var expr = hdetImplicit(vec_T0,vec_T1,vec_T2,vec_T3);
+    var eq_input = document.getElementById("equation-input");
+    // set equation input field and force update
+    eq_input.value = expr;
+    updateFunctionInput(true);
+}
+
+function hdetImplicit(T0,T1,T2,T3) {
+    // given symbolic expression for hdet in a 3-D affine space, substitute
+    // values for the 4 tensors to get implicit expression in terms of x, y, z
+    var hdet_sym =
+        "-(4*x**2*T1[0,0,0]*T1[1,1,0] - 4*x**2*T1[0,1,0]*T1[1,0,0] + 4*x*y*T1[0,0,0]*T2[1,1,0] - 4*x*y*T1[0,1,0]*T2[1,0,0] - 4*x*y*T1[1,0,0]*T2[0,1,0] + 4*x*y*T1[1,1,0]*T2[0,0,0] + 4*x*z*T1[0,0,0]*T3[1,1,0] - 4*x*z*T1[0,1,0]*T3[1,0,0] - 4*x*z*T1[1,0,0]*T3[0,1,0] + 4*x*z*T1[1,1,0]*T3[0,0,0] + 4*x*T0[0,0,0]*T1[1,1,0] - 4*x*T0[0,1,0]*T1[1,0,0] - 4*x*T0[1,0,0]*T1[0,1,0] + 4*x*T0[1,1,0]*T1[0,0,0] + 4*y**2*T2[0,0,0]*T2[1,1,0] - 4*y**2*T2[0,1,0]*T2[1,0,0] + 4*y*z*T2[0,0,0]*T3[1,1,0] - 4*y*z*T2[0,1,0]*T3[1,0,0] - 4*y*z*T2[1,0,0]*T3[0,1,0] + 4*y*z*T2[1,1,0]*T3[0,0,0] + 4*y*T0[0,0,0]*T2[1,1,0] - 4*y*T0[0,1,0]*T2[1,0,0] - 4*y*T0[1,0,0]*T2[0,1,0] + 4*y*T0[1,1,0]*T2[0,0,0] + 4*z**2*T3[0,0,0]*T3[1,1,0] - 4*z**2*T3[0,1,0]*T3[1,0,0] + 4*z*T0[0,0,0]*T3[1,1,0] - 4*z*T0[0,1,0]*T3[1,0,0] - 4*z*T0[1,0,0]*T3[0,1,0] + 4*z*T0[1,1,0]*T3[0,0,0] + 4*T0[0,0,0]*T0[1,1,0] - 4*T0[0,1,0]*T0[1,0,0])*(x**2*T1[0,0,1]*T1[1,1,1] - x**2*T1[0,1,1]*T1[1,0,1] + x*y*T1[0,0,1]*T2[1,1,1] - x*y*T1[0,1,1]*T2[1,0,1] - x*y*T1[1,0,1]*T2[0,1,1] + x*y*T1[1,1,1]*T2[0,0,1] + x*z*T1[0,0,1]*T3[1,1,1] - x*z*T1[0,1,1]*T3[1,0,1] - x*z*T1[1,0,1]*T3[0,1,1] + x*z*T1[1,1,1]*T3[0,0,1] + x*T0[0,0,1]*T1[1,1,1] - x*T0[0,1,1]*T1[1,0,1] - x*T0[1,0,1]*T1[0,1,1] + x*T0[1,1,1]*T1[0,0,1] + y**2*T2[0,0,1]*T2[1,1,1] - y**2*T2[0,1,1]*T2[1,0,1] + y*z*T2[0,0,1]*T3[1,1,1] - y*z*T2[0,1,1]*T3[1,0,1] - y*z*T2[1,0,1]*T3[0,1,1] + y*z*T2[1,1,1]*T3[0,0,1] + y*T0[0,0,1]*T2[1,1,1] - y*T0[0,1,1]*T2[1,0,1] - y*T0[1,0,1]*T2[0,1,1] + y*T0[1,1,1]*T2[0,0,1] + z**2*T3[0,0,1]*T3[1,1,1] - z**2*T3[0,1,1]*T3[1,0,1] + z*T0[0,0,1]*T3[1,1,1] - z*T0[0,1,1]*T3[1,0,1] - z*T0[1,0,1]*T3[0,1,1] + z*T0[1,1,1]*T3[0,0,1] + T0[0,0,1]*T0[1,1,1] - T0[0,1,1]*T0[1,0,1]) + (x**2*T1[0,0,0]*T1[1,1,1] + x**2*T1[0,0,1]*T1[1,1,0] - x**2*T1[0,1,0]*T1[1,0,1] - x**2*T1[0,1,1]*T1[1,0,0] + x*y*T1[0,0,0]*T2[1,1,1] + x*y*T1[0,0,1]*T2[1,1,0] - x*y*T1[0,1,0]*T2[1,0,1] - x*y*T1[0,1,1]*T2[1,0,0] - x*y*T1[1,0,0]*T2[0,1,1] - x*y*T1[1,0,1]*T2[0,1,0] + x*y*T1[1,1,0]*T2[0,0,1] + x*y*T1[1,1,1]*T2[0,0,0] + x*z*T1[0,0,0]*T3[1,1,1] + x*z*T1[0,0,1]*T3[1,1,0] - x*z*T1[0,1,0]*T3[1,0,1] - x*z*T1[0,1,1]*T3[1,0,0] - x*z*T1[1,0,0]*T3[0,1,1] - x*z*T1[1,0,1]*T3[0,1,0] + x*z*T1[1,1,0]*T3[0,0,1] + x*z*T1[1,1,1]*T3[0,0,0] + x*T0[0,0,0]*T1[1,1,1] + x*T0[0,0,1]*T1[1,1,0] - x*T0[0,1,0]*T1[1,0,1] - x*T0[0,1,1]*T1[1,0,0] - x*T0[1,0,0]*T1[0,1,1] - x*T0[1,0,1]*T1[0,1,0] + x*T0[1,1,0]*T1[0,0,1] + x*T0[1,1,1]*T1[0,0,0] + y**2*T2[0,0,0]*T2[1,1,1] + y**2*T2[0,0,1]*T2[1,1,0] - y**2*T2[0,1,0]*T2[1,0,1] - y**2*T2[0,1,1]*T2[1,0,0] + y*z*T2[0,0,0]*T3[1,1,1] + y*z*T2[0,0,1]*T3[1,1,0] - y*z*T2[0,1,0]*T3[1,0,1] - y*z*T2[0,1,1]*T3[1,0,0] - y*z*T2[1,0,0]*T3[0,1,1] - y*z*T2[1,0,1]*T3[0,1,0] + y*z*T2[1,1,0]*T3[0,0,1] + y*z*T2[1,1,1]*T3[0,0,0] + y*T0[0,0,0]*T2[1,1,1] + y*T0[0,0,1]*T2[1,1,0] - y*T0[0,1,0]*T2[1,0,1] - y*T0[0,1,1]*T2[1,0,0] - y*T0[1,0,0]*T2[0,1,1] - y*T0[1,0,1]*T2[0,1,0] + y*T0[1,1,0]*T2[0,0,1] + y*T0[1,1,1]*T2[0,0,0] + z**2*T3[0,0,0]*T3[1,1,1] + z**2*T3[0,0,1]*T3[1,1,0] - z**2*T3[0,1,0]*T3[1,0,1] - z**2*T3[0,1,1]*T3[1,0,0] + z*T0[0,0,0]*T3[1,1,1] + z*T0[0,0,1]*T3[1,1,0] - z*T0[0,1,0]*T3[1,0,1] - z*T0[0,1,1]*T3[1,0,0] - z*T0[1,0,0]*T3[0,1,1] - z*T0[1,0,1]*T3[0,1,0] + z*T0[1,1,0]*T3[0,0,1] + z*T0[1,1,1]*T3[0,0,0] + T0[0,0,0]*T0[1,1,1] + T0[0,0,1]*T0[1,1,0] - T0[0,1,0]*T0[1,0,1] - T0[0,1,1]*T0[1,0,0])**2";
+
+    var T_list = [T0,T1,T2,T3];
+    var hdet_imp = hdet_sym;
+    // substitute actual values into expression
+    var ind_flat, elt_cur;
+    for (let iT of [0,1,2,3]) {
+        var Tcur = T_list[iT];
+        for (let i of [0,1])  {
+          for (let j of [0,1])  {
+            for (let k of [0,1])  {
+              ind_flat = i*4 + j*2 + k*1;  // index into vec(Tcur)
+              elt_cur = Tcur[ind_flat];
+              hdet_imp = hdet_imp.replaceAll(`T${iT}[${i},${j},${k}]`,
+                                             elt_cur);
+          }
+        }
+      }
+    }
+    return hdet_imp;
 }
 
 
