@@ -13,6 +13,20 @@ function parseTensor(T_expr) {
   return T_array;
 }
 
+function string_float_product(match,...args) {
+  // string to string float multiplier: "1.2*2.0" -> "2.4"
+  var float1 = args.at(0);
+  var float2 = args.at(1);
+  var prod_string = String(float1*float2);
+  return prod_string;
+}
+
+function combine_floats(expr) {
+  let float_prod_regexp = /(\d+\.\d+)\*(\d+\.\d+)/g;
+  var expr_prod = expr.replace(float_prod_regexp,string_float_product);
+  return expr_prod;
+}
+
 let MathParser = {
     // independent variables, one letter, can be reassigned
     IndependentVariables: {

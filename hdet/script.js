@@ -87,6 +87,7 @@ function randomize_123() {
   var fields = ["1-input", "2-input", "3-input"];
   var A = random_matrix(8,4);
   var U = cgs(A);
+  console.log(U);
   for (let i in fields) {
     var elem = document.getElementById(fields[i]);
     elem.value = vector_to_string(get_column(U,i));
@@ -130,6 +131,7 @@ function hdetImplicit(T0,T1,T2,T3) {
         }
       }
     }
+    // hdet_imp = combine_floats(hdet_imp);
     return hdet_imp;
 }
 
