@@ -1,6 +1,6 @@
 ## (hyper)determinant visualizations
 Highly interactive visualizations of the determinant 0 surface of 3x3 matrices and the hyperdeterminant 0 surface of 2x2x2 tensors.
-Check them out [here](ghbrown.net/spirulae).
+Check them out [here](https://ghbrown.net/spirulae).
 
 ## Run locally
 If you just want to run the website locally or hack on it a bit, that's easy too:
