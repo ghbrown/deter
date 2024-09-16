@@ -2,7 +2,7 @@
 
 "use strict";
 
-function parseTensor(T_expr) {
+function parseFlattened(T_expr) {
   var to_erase = '{}()[],;';  // characters we don't care about
   var expr = T_expr.trim();
   for (const c of to_erase) {
@@ -13,7 +13,7 @@ function parseTensor(T_expr) {
   return T_array;
 }
 
-function string_float_product(match,...args) {
+function stringFloatProduct(match,...args) {
   // string to string float multiplier: "1.2*2.0" -> "2.4"
   var float1 = args.at(0);
   var float2 = args.at(1);
@@ -21,9 +21,9 @@ function string_float_product(match,...args) {
   return prod_string;
 }
 
-function combine_floats(expr) {
+function combineFloats(expr) {
   let float_prod_regexp = /(\d+\.\d+)\*(\d+\.\d+)/g;
-  var expr_prod = expr.replace(float_prod_regexp,string_float_product);
+  var expr_prod = expr.replace(float_prod_regexp,stringFloatProduct);
   return expr_prod;
 }
 

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Determinant Visualizer</title>
+    <meta name="description"
+        content="Visualization of the zero locus of the determinant for $3 \times 3 \$ matrices." />
+    <meta name="keywords"
+        content="isosurface, implicit, surface, function, graphing calculator, 3d, raymarching, raycasting, webgl" />
+    <meta property="og:image" content="../assets/gallery-implicit3-barth6.jpg" />
+    <link rel="image_src" href="../assets/gallery-implicit3-barth6.jpg" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- <link rel="canonical" href="https://harry7557558.github.io/spirulae/implicit3/" /> -->
+
+    <link rel="stylesheet" href="../styles/style.css" />
+
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+
+    <div id="legend">
+        <div id="fps"></div>
+        <svg id="axes" width="80" height="80">
+            <g transform="translate(40,40)">
+                <circle id='axis-circle' class='axis-3d-active' cx="0" cy="0" r="40" stroke="none" fill="rgba(48,48,48,0.6)"></circle>
+                <line id="axis-x" x1="0" y1="0" x2="0" y2="0" stroke="rgb(250,50,80)" stroke-width="2.5"></line>
+                <line id="axis-y" x1="0" y1="0" x2="0" y2="0" stroke="rgb(140,220,0)" stroke-width="2.5"></line>
+                <line id="axis-z" x1="0" y1="0" x2="0" y2="0" stroke="rgb(40,140,250)" stroke-width="2.5"></line>
+            </g>
+            <text id="legend-text" x="40" y="68" text-anchor="middle" alignment-baseline="top" stroke="none"
+                fill="rgba(255,255,255,0.7)" font-family="monospace" font-size="1.0em"></text>
+        </svg>
+    </div>
+
+    <div id="control">
+        <span hidden><select id="builtin-functions"></select></span>
+        <span title="Display a preview of the input equation" hidden><input type="checkbox" id="checkbox-latex"
+                />equation preview</span>
+        <span title="Automatically update the shader on input" hidden><input type="checkbox" id="checkbox-auto-compile"/>auto-update</span>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <p> visualizing $\text{det}\left( \mathbf{M}_0 + x\mathbf{M}_1 + y\mathbf{M}_2 + z\mathbf{M}_3 \right) = 0$</p>
+          <span title="Update equation"><button id="button-update" onclick='updateDet();'>update</button></span>
+        </div>
+        <br>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <p style="margin:0">$\mathbf{M}_0$:</p>
+          <span title="Randomize shift (M_0) as rank 1 "><button id="button-shift" onclick='randomize_0(1); updateDet();'>randomize (rank 1)</button></span>
+          <span title="Randomize shift (M_0) as rank 2 "><button id="button-shift" onclick='randomize_0(2); updateDet();'>randomize (rank 2)</button></span>
+          <span title="Randomize shift (M_0) as rank 3 "><button id="button-shift" onclick='randomize_0(3); updateDet();'>randomize (rank 3)</button></span>
+        </div>
+        <textarea id="0-input" spellcheck="false" autocapitalize="off" autocorrect="off"
+            data-gramm="false"></textarea>
+        <br>
+        <br>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <p style="margin:0">$\mathbf{M}_1$,&nbsp $\mathbf{M}_2$,&nbsp $\mathbf{M}_3$:</p>
+          <span title="Randomize linear space (M_1,M_2,M_3)"><button id="button-linear" onclick='randomize_123(); updateDet();'>randomize</button></span>
+        </div>
+        <textarea id="1-input" spellcheck="false" autocapitalize="off" autocorrect="off"
+            data-gramm="false"></textarea>
+        <textarea id="2-input" spellcheck="false" autocapitalize="off" autocorrect="off"
+            data-gramm="false"></textarea>
+        <textarea id="3-input" spellcheck="false" autocapitalize="off" autocorrect="off"
+            data-gramm="false"></textarea>
+        <br>
+        <textarea id="equation-input" spellcheck="false" autocapitalize="off" autocorrect="off"
+            data-gramm="false" hidden></textarea>
+        <br>
+        <p><u>Graphical settings</u><p>
+        <span><select id="select-step">
+                <option value="0.04">low</option>
+                <option value="0.01" selected>medium</option>
+                <option value="0.004">high</option>
+                <option value="0.001">ultra high</option>
+            </select>quality</span>&ensp;
+        <span title="Use y-up coordinate system convension" hidden><input type="checkbox"
+                id="checkbox-yup" /><i>y</i>-up</span>&ensp;
+        <span title="Clip the shape inside a box"><select id="select-clip">
+            <option value="0">no</option>
+            <option value="1" selected>box</option>
+            <option value="2">sphere</option>
+        </select>clip shape</span>
+        <br>
+        <span title="Fixed box size independent of zooming" hidden><input type="checkbox"
+                id="checkbox-clip-fixed" />fixed</span>
+        <span title="Visualize scalar field with volume contour lines" hidden><select id="select-field">
+            <option value="0" selected>no</option>
+            <option value="2">log</option>
+            <option value="1">linear</option>
+            <option value="3">color</option>
+        </select>field</span>
+        <span title="Surface color mode"><select id="select-color">
+                <option value="0">default</option>
+                <option value="1">normal</option>
+                <option value="2" selected>gradient</option>
+            </select>surface color</span>&ensp;
+        <span title="Display the surface as semi-transparent" hidden>
+            <input type="checkbox"id="checkbox-transparency"/>transparency</span>
+        <span title="Show grid on the surface"><input type="checkbox" id="checkbox-grid" checked />grid</span>&ensp;
+        <span title="Red-highlight discontinuities with sign change for opaque surfaces" hidden><input type="checkbox"
+                id="checkbox-discontinuity" checked />highlight discontinuity</span>
+        <br>
+        <span><i>θ<sub>light</sub></i>&nbsp;<input type="range" id="slider-theta" style="width:100px" /></span>
+        <span><i>φ<sub>light</sub></i>&nbsp;<input type="range" id="slider-phi" style="width:60px" /></span>
+        <br>
+        <span title="Light theme"><input type="checkbox" id="checkbox-light" />☼ &nbsp&nbsp</span>
+        <a href='#' onclick='javascript:event.preventDefault();document.getElementById("help-menu").style.visibility="visible";'>help</a>
+        <br />
+        <p id="error-message" style="display:none"></p>
+    </div>
+
+    <div id="mathjax-preview" style="left:0px;top:0px;display:none" hidden></div>
+
+    <div id="help-menu" style="visibility:hidden">
+        <div id="help-menu-hide" onclick='document.getElementById("help-menu").style.visibility="hidden"'>×</div>
+    </div>
+
+    <script>
+        (function () {
+            // refresh cache every one hour
+            function loadScript(src) {
+                var hour = Math.floor(Date.now() / 3600000);
+                var script = document.createElement("script");
+                script.src = src + "?nocache=" + hour;
+                document.head.appendChild(script);
+            }
+            loadScript("../scripts/parameter.js");
+            loadScript("../scripts/functions.js");
+            loadScript("../scripts/linalg.js");
+            loadScript("../scripts/parser.js");
+            loadScript("../scripts/codegen.js");
+            loadScript("../scripts/render-gl.js");
+            loadScript("../scripts/render-3d.js");
+            loadScript("../scripts/render-raymarch.js");
+            loadScript("../scripts/latex.js");
+            loadScript("script.js");
+        })();
+    </script>
+
+</body>
+
+</html>

@@ -1,3 +1,20 @@
+function uniform_random_vector(m) {
+  var u = new Array(m);
+  for (var i=0; i<u.length; i++) {
+    u[i] = (Math.random()-0.5)*2;
+  }
+  return u;
+}
+
+function uniform_random_matrix(m,n) {
+  var A = new Array(m);
+  for (var i=0; i<m; i++) {
+    A[i] = uniform_random_vector(n);
+  }
+  return A;
+}
+
+
 function copy_matrix(A) {
   var B = [];
   for (var i=0; i<A.length; i++) {
@@ -6,7 +23,7 @@ function copy_matrix(A) {
   return B;
 }
 
-function inner(u,v) {
+function inner(u,v) { // vector inner product
   var val = 0.0;
   for (var i=0; i<u.length; i++) {
     val += u[i]*v[i];
@@ -14,7 +31,22 @@ function inner(u,v) {
   return val;
 }
 
-function vec_mult(a,v) {
+function outer(u,v) { // outer product of two vectors
+  // allocate matrix
+  var A = new Array(u.length);
+  for (var i=0; i<A.length; i++) {
+    A[i] = new Array(v.length);
+  }
+  // fill matrix
+  for (var i=0; i<A.length; i++) {
+    for (var j=0; j<A[0].length; j++) {
+      A[i][j] = u[i]*v[j];
+    }
+  }
+  return A;
+}
+
+function vec_mult(a,v) { // scalar times vector
   var av = new Array(v.length);
   for (var i=0; i<av.length; i++) {
     av[i] = a*v[i];
@@ -22,7 +54,7 @@ function vec_mult(a,v) {
   return av;
 }
 
-function vec_add(u,v) {
+function vec_add(u,v) { // addition of two vectors
   var u_p_v = new Array(u.length);
   for (var i=0; i<u_p_v.length; i++) {
     u_p_v[i] = u[i] + v[i];
@@ -62,18 +94,31 @@ function cgs(A) { // classical Gram-Schmidt orthogonalization
   return U;
 }
 
-function random_matrix(m,n) {
-  // n random floats in a vector
-  var A = new Array(m);
-  for (var i=0; i<m; i++) {
-    A[i] = new Array(n);
-  }
+function flatten_matrix(A) {
+  var m = A.length;
+  var n = A[0].length;
+  var v = new Array(m*n);
   for (var i=0; i<m; i++) {
     for (var j=0; j<n; j++) {
-      A[i][j] = Math.random();
+      v[i*m + j] = A[i][j];
     }
   }
-  return A;
+  return v;
+}
+
+function random_rank_1_matrix(m,n) {
+  var u = uniform_random_vector(m);
+  var v = uniform_random_vector(n);
+  var L = outer(u,v);
+  return L;
+}
+
+function random_rank_k_3x3_flat(k) {
+  var A_flat = flatten_matrix(random_rank_1_matrix(3,3));
+  for (var i=1; i<k; i++) {
+    A_flat = vec_add(A_flat,flatten_matrix(random_rank_1_matrix(3,3)));
+  }
+  return A_flat;
 }
 
 function vector_to_string(v) {  // concatenate floats to spaced string
