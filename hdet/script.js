@@ -25,6 +25,40 @@ function randomize_123() {
   }
 }
 
+function set_T0_canonical_form(evt) {
+  var orbit = evt.target.value;
+  var elem = document.getElementById("0-input");
+  var T_0_str;
+  switch(orbit) {
+  case "D0":
+    T_0_str = '0 0 0 0 0 0 0 0';
+    break;
+  case "D1":
+    T_0_str = '1 0 0 0 0 0 0 0';
+    break;
+  case "D2":
+    T_0_str = '1 0 0 0 0 0 1 0';
+    break;
+  case "D2'":
+    T_0_str = '1 0 0 1 0 0 0 0';
+    break;
+  case "D2''":
+    T_0_str = '1 0 0 0 0 1 0 0';
+    break;
+  case "D3":
+    T_0_str = '1 0 0 1 0 1 0 0';
+    break;
+  case "G2":
+    T_0_str = '1 0 0 0 0 0 0 1';
+    break;
+  case "G3":
+    T_0_str = '1  0  0 -1  0  1  1  0';
+    break;
+  }
+  elem.value = T_0_str;
+  // updateHdet();
+}
+
 function updateHdet() {
     // read flattened tensors
     var vec_T0 = parseFlattened(document.getElementById("0-input").value);

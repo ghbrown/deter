@@ -1,44 +1,29 @@
-<h2>3D Implicit Surface Grapher</h2>
+<h2>$2 \times 2 \times 2$ hyperdeterminant visualizer</h2>
 
-<p>By Harry Chen (harry7557558) - I couldn't find a satisfying tool on the internet, so I made one. I was inspired by raymarching demos on <a href="https://www.shadertoy.com/" target="_blank">Shadertoy</a>.</p>
+<p>This tool visualizes the zero surface of the hyperdeterminant for $2 \times 2 \times 2$ tensors. Specifically, it visualizes the zero surface in a configurable 3-D slice of the full 8-D space. Type (vectorized) tensors in the input boxes or randomize them. Tensors are written using C-style vectorization:</p>
 
-<img src="../assets/gallery-implicit3-barth6.jpg" alt="gallery-implicit3-barth6.jpg" />
+<pre><code>
+  t_111 t_112 t_121 t_122 t_211 t_212 t_221 t_222
+</pre></code>
 
-<p>This tool implements the raymarching algorithm to render 3D implicit surfaces. Type equations in the input box, or look at some examples. Drag the canvas to rotate the surface, and scroll to zoom in/out. Drag while holding <code>Shift</code> to move the graph on the screen. Reset the viewport by switching to an example and switching back (you may want to back up your input). Try to play with selectors, checkboxes, and sliders.</p>
+<p>You can also choose $\mathbf{T}_0$ as a canonical form using the dropdown menu. Note that with the canonical forms for orbits $D_0$ and $D_1$.</p>
 
-<p>You need a device/browser that supports <a href="https://webglreport.com/?v=2" target="_blank">WebGL 2</a> to run this tool. An FPS counter will be available if your browser supports the <code>EXT_disjoint_timer_query_webgl2</code> extension. If the graph takes too long to update, uncheck the "auto-update" checkbox and apply your change by clicking the "update" button or pressing <code>Alt+Enter</code>.</p>
+<p>Together $(\mathbf{T}_0,\mathbf{T}_1,\mathbf{T}_2,\mathbf{T}_3)$ define a 3-D slice through the space. $\mathbf{T}_0$ gives the base point through which the slice will pass, while other three tensors define directions one can move within the slice.</p>
 
-<p>A preview of the equation is available via <a href="https://www.mathjax.org/" target="_blank">MathJax</a>. You can drag it to move it, or turn it off/on by unchecking/checking the "equation preview" checkbox.</p>
+<p>Drag the canvas to rotate the surface, and scroll to zoom in/out. Drag while holding <code>Shift</code> to move the graph on the screen. Try to play with selectors, checkboxes, and sliders.</p>
 
-<h3>Entering equations</h3>
-
-<p>Use $x, y, z$ as independent variables. Write your equation in the form $f(x,y,z)=0$ or $f(x,y,z)=g(x,y,z)$. Use <code>^</code> for power/exponentiation, <code>*</code> for multiplication, and <code>/</code> for division. You can use built-in functions like <code>abs()</code>, <code>sin()</code>, and <code>sqrt()</code>. Note that <code>log(x)</code> evaluates the natural logarithm by default. For the common logarithm, type <code>log(10,x)</code> instead.</p>
-
-<p><b>Defining variables</b>: A variable name starts with a letter, followed by an (optional) underscore and a string of letters or numbers. Example variable names are <code>k</code>, <code>x0</code> ($x_0$, equivalent to <code>x_0</code>), <code>x_t</code> ($x_t$) and <code>A_11</code> ($A_{11}$). For example, you can define <code>a=x+y</code> and enter <code>z=a*sin(a)</code> as the main equation.</p>
-
-<p><b>Defining functions</b>: The name of a function (and its arguments) are similar to variable names. A function may be defined as <code>f(t)=t*sin(t)</code> and called like <code>z=f(x)*f(y)</code>, or defined as <code>g(a,b)=sin(a)*cos(b)</code> and called like <code>z=g(x+y,x-y)</code>.</p>
-
-<p><b>Comments</b>: A comment can be a single line or after a line of expression, starting with the character <code>#</code>. (Check the "Atan2 Spirula" example)</p>
+<p>You need a device/browser that supports <a href="https://webglreport.com/?v=2" target="_blank">WebGL 2</a> to run this tool.</p>
 
 <h3>Graphing parameters</h3>
 
 <p><b>Quality</b>: A higher quality means a smaller raymarching step, which is slower but usually produces a more accurate image.</p>
 
-<p><b><i>Y</i>-up</b>: Most math textbooks use the <i>z</i>-axis as the vertical axis. Check this checkbox if you prefer <i>y</i> as the vertical axis.</p>
-
 <p><b>Light theme</b>: Check <code>☼</code> to use light background instead of the default dark background.</p>
 
 <p><b>Clip</b>: Restrict the domain of the function for better visualization and accelerated rendering.</p>
 
-<p><b>Fixed clip</b>: By default domain clipping changes while zooming to adapt to viewport. Check this if you want to keep the function domain consistent.</p>
-
-<p><b>Field</b>: Visualize scalar field using volume contour lines. Use this selector to choose linear contour, logarithmic contour, or no contour. You can also visualize the color field if you have defined one (see Color modes). Warn that volume rendering can be slow when the function domain isn't restricted, and therefore it's recommended to set a clip when using this feature.</p>
 
 <p><b>Grid</b>: When checked, this tool will display an adaptive grid on the surface, making it easier to see the size of the object and read the coordinates of a point.</p>
-
-<p><b>Transparency</b>: Check this if you want the surface to be semi-transparent so you can look through it. (Try the "A5 Star" example.) Warn that this may decrease the accuracy of the rendering.</p>
-
-<p><b>Discontinuity</b>: In rendering, the surface is defined by a set of points with changes of sign, which is either a zero or a discontinuity. Check this to detect and red highlight discontinuity. (Try the "Sin Terrace" example.) Currently, this is only supported for surfaces without transparency.</p>
 
 <p><b>Lighting angles</b>: As the <i>θ<sub>light</sub></i> slider is dragged from left to right, the light moves from bottom to bottom counter-clockwise. As the <i>φ<sub>light</sub></i> slider is dragged from left to right, the light moves from front to back. The light rotates to fit this description as the viewport rotates. Right-click a slider to reset a lighting angle to default.</p>
 
@@ -50,8 +35,6 @@
 
 <p><b>Gradient</b>: This mode colors the surface based on the magnitude of the gradient. The surface appears bluer when the magnitude of the gradient is closer to an integer power of 100, like 0.01, 1, 100, and more orange as it departs. For a perfect SDF, you should see a clean dark blue color. For where the gradient approaches zero or infinity, there may be alternating blue and orange "stripes." (check the "A6 heart" example)</p>
 
-<p><b>Custom color</b>: You can define custom colors for surfaces and volumes by assigning a 3-component vector (<code>vec3</code>) to <code>c_rgb</code>, <code>c_hsv</code>, <code>c_hsl</code> variables. This overrides the default albedo of the surface, as well as allowing visualizing color volume under the "Field" checkbox. <code>c_rgb</code> takes three scalars with characteristic range $[0,1]$ and calculates ACES-tonemapped color. <code>c_hsl</code> and <code>c_hsv</code> takes hue with characteristic range $[0,2\pi)$ and two other values with range $[0,1]$. (Check the "Color Space" example)
-
 <h3>Technical details</h3>
 
 <p>This tool implements the raymarching algorithm in WebGL fragment shaders. It casts rays from the camera and numerically finds its intersections with the surface. The raymarching step size is calculated by dividing the value of the scalar field by the magnitude of the directional derivative along the ray (in screen space) and clamped based on a given step size, which can be changed through the "quality" selector.</p>
@@ -62,6 +45,4 @@
 
 <p>The rendered image goes through an anti-aliasing pass. This pass uses a filter based on linear regression to anti-alias the image. A description and implementation of the algorithm can be found <a href="https://www.shadertoy.com/view/sllczM" target="_blank">here</a>.</p>
 
-<p>The input entered is parsed in JavaScript. After preprocessing (ex. adding multiplication signs), the input is parsed to the postfix notation using the <a href="https://en.wikipedia.org/wiki/Shunting-yard_algorithm" target="_blank">shunting-yard algorithm</a>. When generating GLSL code, the expression is evaluated on a stack with caching of common subtrees. Generated GLSL code is logged to the console, which can be found under the "Console" tab of the F12 developer tool.</p>
-
-<p>The source code of this tool can be found on <a href="https://github.com/harry7557558/spirulae/tree/master/implicit3" target="_blank">GitHub</a>.</p>
+<p>The source code of this tool can be found on <a href="https://github.com/ghbrown.net/deter/" target="_blank">GitHub</a>, and was built on top of Harry Chen's <a href="https://github.com/harry7557558/spirulae/tree/master/implicit3" target="_blank">Spirulae 3D implicit surface grapher</a>.</p>

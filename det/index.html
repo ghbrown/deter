@@ -106,8 +106,12 @@
         <span><i>θ<sub>light</sub></i>&nbsp;<input type="range" id="slider-theta" style="width:100px" /></span>
         <span><i>φ<sub>light</sub></i>&nbsp;<input type="range" id="slider-phi" style="width:60px" /></span>
         <br>
-        <span title="Light theme"><input type="checkbox" id="checkbox-light" />☼ &nbsp&nbsp</span>
-        <a href='#' onclick='javascript:event.preventDefault();document.getElementById("help-menu").style.visibility="visible";'>help</a>
+        <span title="Light theme"><input type="checkbox" id="checkbox-light" />☼</span>
+        <div style="display:flex; gap:10px; align-items:center;">
+            <a href='#' onclick='javascript:event.preventDefault();document.getElementById("help-menu").style.visibility="visible";'>help</a>
+            <a href='../'>home</a>
+            <a href='https://github.com/ghbrown/deter/'>github</a>
+        </div>
         <br />
         <p id="error-message" style="display:none"></p>
     </div>

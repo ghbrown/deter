@@ -35,11 +35,7 @@ function initHelpMenu() {
     req.onload = function () {
         var html = req.status == 200 ?
             req.responseText : errorMsg;
-        container.innerHTML += `<div id="help-menu-links">
-            <a href="https://harry7557558.github.io/spirulae/" target="_blank">Home</a> ⋅
-            <a href="https://spirulae.github.io/gallery/" target="_blank">Gallery</a> ⋅
-            <a href="https://github.com/harry7557558/spirulae/" target="_blank">GitHub</a>
-        </div>` + html;
+        container.innerHTML += html;
     };
     req.onerror = function () {
         container.innerHTML += errorMsg;
