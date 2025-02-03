@@ -58,6 +58,7 @@
         <div style="display:flex; gap:10px; align-items:center;">
           <p style="margin:0">$\mathbf{M}_1$,&nbsp $\mathbf{M}_2$,&nbsp $\mathbf{M}_3$:</p>
           <span title="Randomize linear space (M_1,M_2,M_3)"><button id="button-linear" onclick='randomize_123(); updateDet();'>randomize</button></span>
+          <span title="Make 2-D by setting M_3=0"><button id="button-2D" onclick='make_2D(); updateDet();'>make 2-D</button></span>
         </div>
         <textarea id="1-input" spellcheck="false" autocapitalize="off" autocorrect="off"
             data-gramm="false">1 0 0 1 0 0 0 0 0</textarea>
@@ -68,6 +69,8 @@
         <br>
         <textarea id="equation-input" spellcheck="false" autocapitalize="off" autocorrect="off"
             data-gramm="false" hidden></textarea>
+        <br>
+         <span title="figure"><button id="button-figure" onclick='figure(); updateDet();'>Reproduce Figure 7</button></span>
         <br>
         <p><u>Graphical settings</u><p>
         <span><select id="select-step">
@@ -80,8 +83,8 @@
                 id="checkbox-yup" /><i>y</i>-up</span>&ensp;
         <span title="Clip the shape inside a box"><select id="select-clip">
             <option value="0">no</option>
-            <option value="1" selected>box</option>
-            <option value="2">sphere</option>
+            <option value="1">box</option>
+            <option value="2" selected>sphere</option>
         </select>clip shape</span>
         <br>
         <span title="Fixed box size independent of zooming" hidden><input type="checkbox"
@@ -94,8 +97,8 @@
         </select>field</span>
         <span title="Surface color mode"><select id="select-color">
                 <option value="0">default</option>
-                <option value="1">normal</option>
-                <option value="2" selected>gradient</option>
+                <option value="1" selected>normal</option>
+                <option value="2">gradient</option>
             </select>surface color</span>&ensp;
         <span title="Display the surface as semi-transparent" hidden>
             <input type="checkbox"id="checkbox-transparency"/>transparency</span>

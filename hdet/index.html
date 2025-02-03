@@ -66,6 +66,7 @@
         <div style="display:flex; gap:10px; align-items:center;">
           <p style="margin:0">$\mathcal{T}_1$,&nbsp $\mathcal{T}_2$,&nbsp $\mathcal{T}_3$:</p>
           <span title="Randomize linear space (T_1,T_2,T_3)"><button id="button-linear" onclick='randomize_123(); updateHdet();'>randomize</button></span>
+          <span title="Make 2-D by setting T_3=0"><button id="button-2D" onclick='make_2D(); updateHdet();'>make 2-D</button></span>
         </div>
         <textarea id="1-input" spellcheck="false" autocapitalize="off" autocorrect="off"
             data-gramm="false">1 0 1 0 0 0 0 1</textarea>
@@ -77,6 +78,9 @@
         <textarea id="equation-input" spellcheck="false" autocapitalize="off" autocorrect="off"
             data-gramm="false" hidden></textarea>
         <br>
+        <span title="figure-intro"><button id="button-figure-intro" onclick='figure_intro(); updateHdet();'>Reproduce Figure 2</button></span>
+        <span title="figure-generic"><button id="button-figure-d2pp" onclick='figure_generic(); updateHdet();'>Reproduce Figure 8</button></span>
+        <span title="figure-D2pp"><button id="button-figure-D2pp" onclick='figure_D2pp(); updateHdet();'>Reproduce Figure 9</button></span>
         <p><u>Graphical settings</u><p>
         <span><select id="select-step">
                 <option value="0.04">low</option>
@@ -88,8 +92,8 @@
                 id="checkbox-yup" /><i>y</i>-up</span>&ensp;
         <span title="Clip the shape inside a box"><select id="select-clip">
             <option value="0">no</option>
-            <option value="1" selected>box</option>
-            <option value="2">sphere</option>
+            <option value="1">box</option>
+            <option value="2" selected>sphere</option>
         </select>clip shape</span>
         <br>
         <span title="Fixed box size independent of zooming" hidden><input type="checkbox"
@@ -102,8 +106,8 @@
         </select>field</span>
         <span title="Surface color mode"><select id="select-color">
                 <option value="0">default</option>
-                <option value="1">normal</option>
-                <option value="2" selected>gradient</option>
+                <option value="1" selected>normal</option>
+                <option value="2">gradient</option>
             </select>surface color</span>&ensp;
         <span title="Display the surface as semi-transparent" hidden>
             <input type="checkbox"id="checkbox-transparency"/>transparency</span>
