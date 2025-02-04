@@ -101,6 +101,8 @@ function figure_D2pp() {
 }
 
 function updateHdet() {
+    // force y-up (otherwise can be finicky)
+    document.getElementById("checkbox-yup").checked = true;
     // read flattened tensors
     var vec_T0 = parseFlattened(document.getElementById("0-input").value);
     var vec_T1 = parseFlattened(document.getElementById("1-input").value);

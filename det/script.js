@@ -43,6 +43,8 @@ function figure() {
 }
 
 function updateDet() {
+    // force y-up (otherwise can be finicky)
+    document.getElementById("checkbox-yup").checked = true;
     // read matrices in flattened form
     var vec_M0 = parseFlattened(document.getElementById("0-input").value);
     var vec_M1 = parseFlattened(document.getElementById("1-input").value);
